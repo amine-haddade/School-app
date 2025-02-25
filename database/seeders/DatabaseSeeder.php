@@ -11,6 +11,7 @@ use App\Models\SessionEvent;
 use App\Models\Subject;
 use App\Models\Timetable;
 use App\Models\User;
+use Database\Factories\GroupFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,10 +24,20 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-      
+        Classroom::factory(10)->create();
+        User::factory(10)->create();
+        Major::factory(6)
+            ->has(
+                Group::factory(10)
+                    ->for(SchoolYear::factory())
+            )
+            ->has(
+                Timetable::factory(20)
+            )
+            ->has(
+                Subject::factory(10)
+
+            )
+            ->create();
     }
 }

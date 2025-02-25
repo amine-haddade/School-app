@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('holiday_timetable', function (Blueprint $table) {
-            $table->id()->first(); 
+        Schema::create('school_years', function (Blueprint $table) {
+            $table->string('id', 36)->primary();
+            $table->date('start_date', 36)->primary();
+            $table->string('end_date', 36)->primary();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('holiday_timetable', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('school_years');
     }
 };

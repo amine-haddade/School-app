@@ -12,6 +12,7 @@ return new class extends Migration
     public function up()
 {
     Schema::create('holiday_timetable', function (Blueprint $table) {
+        $table->id();
         $table->foreignId('timetable_id')->constrained('timetables')->onDelete('cascade');
         $table->foreignId('holiday_id')->constrained('holidays')->onDelete('cascade');
         $table->timestamps();

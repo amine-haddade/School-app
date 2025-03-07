@@ -1,22 +1,27 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Major extends Model
+use App\Models\Group; // Importation du modèle Group
+use App\Models\Subject; // Importation du modèle Subject
+
+class Field extends Model
 {
-    /** @use HasFactory<\Database\Factories\MajorFactory> */
     use HasFactory;
-    public function groups(){
+
+    protected $fillable = ['name'];
+
+    public function groups()
+    {
         return $this->hasMany(Group::class);
     }
-    public function subjects(){
+
+    public function subjects()
+    {
         return $this->hasMany(Subject::class);
     }
-    public function timetables(){
-        return $this->hasMany(Timetable::class);
-    }
-
 }

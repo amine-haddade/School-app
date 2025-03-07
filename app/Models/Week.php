@@ -4,14 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\SessionEvent; 
 
-
-class Classroom extends Model
+class Week extends Model
 {
-
     use HasFactory;
-    protected $fillable = ['name', 'capacity', 'type'];
+
+    protected $fillable = ['week_number', 'school_year_id', 'start_date', 'end_date'];
+
+    public function schoolYear()
+    {
+        return $this->belongsTo(SchoolYear::class);
+    }
 
     public function sessions()
     {

@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use App\Models\Field; // Importation du modèle Field
+use App\Models\User; // Importation du modèle User
 use App\Models\Assignment; // Importation du modèle Assignment
 use App\Models\SessionEvent; // Importation du modèle SessionEvent
 
-class Subject extends Model
+class Trainer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'field_id', 'in_person_hours', 'online_hours', 'exam_type', 'semester'];
+    protected $fillable = ['user_id', 'specialty', 'weekly_hours'];
 
-    public function field()
+    public function user()
     {
-        return $this->belongsTo(Field::class);
+        return $this->belongsTo(User::class);
     }
 
     public function assignments()

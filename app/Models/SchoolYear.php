@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Week; // Importation du modèle Week
+
 class SchoolYear extends Model
 {
-    /** @use HasFactory<\Database\Factories\SchoolYearFactory> */
     use HasFactory;
-    public function groups(){
-        return $this->hasMany(Group::class);
+
+    protected $fillable = ['start_year', 'end_year'];
+
+    public function weeks()
+    {
+        return $this->hasMany(Week::class);
     }
 }

@@ -20,6 +20,8 @@ class SessionEvent extends Model
         'subject_id', 'classroom_id', 'day', 'session_number', 'duration'
     ];
 
+    protected  $with=['week','group','trainer','subject','classroom'];
+
     public function week()
     {
         return $this->belongsTo(Week::class);

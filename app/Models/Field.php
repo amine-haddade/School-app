@@ -15,12 +15,15 @@ class Field extends Model
 
     protected $fillable = ['name'];
 
-    public function groups()
+
+    protected  $with=['group','subject'];
+
+    public function group()
     {
         return $this->hasMany(Group::class);
     }
 
-    public function subjects()
+    public function subject()
     {
         return $this->hasMany(Subject::class);
     }

@@ -13,7 +13,9 @@ class Classroom extends Model
     use HasFactory;
     protected $fillable = ['name', 'capacity', 'type'];
 
-    public function sessions()
+    protected  $with=['session_event'];
+
+    public function session_event()
     {
         return $this->hasMany(SessionEvent::class);
     }

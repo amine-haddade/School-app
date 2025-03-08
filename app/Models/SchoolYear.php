@@ -13,7 +13,10 @@ class SchoolYear extends Model
 
     protected $fillable = ['start_year', 'end_year'];
 
-    public function weeks()
+
+    protected  $with=['week'];
+
+    public function week()
     {
         return $this->hasMany(Week::class);
     }

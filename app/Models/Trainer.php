@@ -14,17 +14,19 @@ class Trainer extends Model
 
     protected $fillable = ['user_id', 'specialty', 'weekly_hours'];
 
+    protected  $with=['user','assignment','session_event'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function assignments()
+    public function assignment()
     {
         return $this->hasMany(Assignment::class);
     }
 
-    public function sessions()
+    public function session_event()
     {
         return $this->hasMany(SessionEvent::class);
     }

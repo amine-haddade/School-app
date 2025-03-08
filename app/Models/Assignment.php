@@ -15,6 +15,8 @@ class Assignment extends Model
 
     protected $fillable = ['trainer_id', 'subject_id', 'group_id'];
 
+    protected  $with=['trainer','subject','group'];
+
     public function trainer()
     {
         return $this->belongsTo(Trainer::class);

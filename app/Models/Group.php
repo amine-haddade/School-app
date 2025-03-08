@@ -18,17 +18,19 @@ class Group extends Model
 
     protected $fillable = ['name', 'field_id'];
 
+    protected  $with=['feild','assignment','session_event'];
+
     public function field()
     {
         return $this->belongsTo(Field::class);
     }
 
-    public function assignments()
+    public function assignment()
     {
         return $this->hasMany(Assignment::class);
     }
 
-    public function sessions()
+    public function session_event()
     {
         return $this->hasMany(SessionEvent::class);
     }

@@ -11,12 +11,14 @@ class Week extends Model
 
     protected $fillable = ['week_number', 'school_year_id', 'start_date', 'end_date'];
 
+    protected  $with=['schoolYear','session_event'];
+
     public function schoolYear()
     {
         return $this->belongsTo(SchoolYear::class);
     }
 
-    public function sessions()
+    public function session_event()
     {
         return $this->hasMany(SessionEvent::class);
     }

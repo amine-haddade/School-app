@@ -1,65 +1,52 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGroupRequest;
+use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Group;
-use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $groups = Group::all();
+        return response()->json([
+            'message' => 'Les groupes sont récupérés avec succès',
+            'groups' => $groups,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreGroupRequest $request)
     {
-        //
+        $group = Group::create($request->validated());
+        return response()->json([
+            'message' => 'Le groupe a été créé avec succès',
+            'group' => $group,
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Group $group)
     {
-        //
+        return response()->json([
+            'message' => 'Le groupe a été récupéré avec succès',
+            'group' => $group,
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Group $group)
+    public function update(UpdateGroupRequest $request, Group $group)
     {
-        //
+        $group->update($request->validated());
+        return response()->json([
+            'message' => 'Le groupe a été modifié avec succès',
+            'group' => $group,
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Group $group)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        return response()->json([
+            'message' => 'Le groupe a été supprimé avec succès',
+        ], 204);
     }
 }

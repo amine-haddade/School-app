@@ -21,7 +21,7 @@ class UpdateSessionEventRequest extends FormRequest
             'subject_id' => 'required|exists:subjects,id',
             'classroom_id' => 'required|exists:classrooms,id',
             'day' => 'required|string',
-            'session_number' => 'required|integer',
+            'session_number' => 'required|string',
             'duration' => 'required|integer',
         ];
     }

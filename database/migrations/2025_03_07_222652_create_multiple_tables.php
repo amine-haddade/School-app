@@ -42,6 +42,10 @@ return new class extends Migration {
         });
 
         // Table Subjects (linked to fields)
+
+
+        // pour les module je dois faire deux primary key name and field id
+        // pour èviter   crèe une module dans la meme filière deux fois 
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -54,6 +58,8 @@ return new class extends Migration {
         });
 
         // Table Assignments (linked to Trainers, Subjects, Groups)
+
+        // la mem chose pour assignment table les trois clone dois unique tous primary key
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
@@ -63,6 +69,7 @@ return new class extends Migration {
         });
 
         // Table School Years
+        // les deux collen start year et end year doi primary key
         Schema::create('school_years', function (Blueprint $table) {
             $table->id();
             $table->integer('start_year');
@@ -81,7 +88,7 @@ return new class extends Migration {
         });
 
         // Table Sessions_event (linked to multiple tables)
-        Schema::create('sessions_event', function (Blueprint $table) {
+        Schema::create('sessions_events', function (Blueprint $table) {
             $table->id();
             $table->date('session_date');
             $table->foreignId('week_id')->constrained('weeks')->onDelete('cascade');
@@ -98,7 +105,7 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('sessions_event');
+        Schema::dropIfExists('sessions_events');
         Schema::dropIfExists('weeks');
         Schema::dropIfExists('school_years');
         Schema::dropIfExists('assignments');

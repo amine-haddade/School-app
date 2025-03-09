@@ -1,65 +1,52 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFieldRequest;
+use App\Http\Requests\UpdateFieldRequest;
 use App\Models\Field;
-use Illuminate\Http\Request;
 
 class FieldController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $fields = Field::all(); // 10 éléments par page
+        return response()->json([
+            'message' => 'Les filières sont récupérées avec succès',
+            'fields' => $fields,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreFieldRequest $request)
     {
-        //
+        $field = Field::create($request->validated());
+        return response()->json([
+            'message' => 'La filière a été créée avec succès',
+            'field' => $field,
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Field $field)
     {
-        //
+        return response()->json([
+            'message' => 'La filière a été récupérée avec succès',
+            'field' => $field,
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Field $field)
+    public function update(UpdateFieldRequest $request, Field $field)
     {
-        //
+        $field->update($request->validated());
+        return response()->json([
+            'message' => 'La filière a été modifiée avec succès',
+            'field' => $field,
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Field $field)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Field $field)
     {
-        //
+        $field->delete();
+        return response()->json([
+            'message' => 'La filière a été supprimée avec succès',
+        ], 204);
     }
 }

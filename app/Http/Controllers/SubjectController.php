@@ -1,65 +1,52 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSubjectRequest;
+use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\Subject;
-use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+        return response()->json([
+            'message' => 'Les matières sont récupérées avec succès',
+            'subjects' => $subjects,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreSubjectRequest $request)
     {
-        //
+        $subject = Subject::create($request->validated());
+        return response()->json([
+            'message' => 'La matière a été créée avec succès',
+            'subject' => $subject,
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Subject $subject)
     {
-        //
+        return response()->json([
+            'message' => 'La matière a été récupérée avec succès',
+            'subject' => $subject,
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subject $subject)
+    public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        //
+        $subject->update($request->validated());
+        return response()->json([
+            'message' => 'La matière a été modifiée avec succès',
+            'subject' => $subject,
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+        return response()->json([
+            'message' => 'La matière a été supprimée avec succès',
+        ], 204);
     }
 }

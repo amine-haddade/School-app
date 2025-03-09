@@ -1,65 +1,75 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSchoolYearRequest;
+use App\Http\Requests\UpdateSchoolYearRequest;
 use App\Models\SchoolYear;
-use Illuminate\Http\Request;
 
 class SchoolYearController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $schoolYears = SchoolYear::with('week')->get();
+        return response()->json([
+            'message' => 'Les années scolaires sont récupérées avec succès',
+            'schoolYears' => $schoolYears,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreSchoolYearRequest $request)
     {
-        //
+        $schoolYear = SchoolYear::create($request->validated());
+        return response()->json([
+            'message' => 'L\'année scolaire a été créée avec succès',
+            'schoolYear' => $schoolYear,
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        //
+        $schoolYear = SchoolYear::find($id);
+        if (!$schoolYear) {
+            return response()->json(['message' => 'Année scolaire introuvable'], 404);
+        }
+
+        return response()->json([
+            'message' => 'L\'année scolaire a été récupérée avec succès',
+            'schoolYear' => $schoolYear,
+        ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SchoolYear $schoolYear)
+   
+
+    public function update(UpdateSchoolYearRequest $request, $id)
     {
-        //
+        $schoolYear = SchoolYear::find($id);
+        
+        if (!$schoolYear) {
+            return response()->json(['message' => 'Année scolaire introuvable'], 404);
+        }
+
+        $schoolYear->update($request->validated());
+        
+        return response()->json([
+            'message' => 'L\'année scolaire a été modifiée avec succès',
+            'schoolYear' => $schoolYear,
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SchoolYear $schoolYear)
+
+    public function destroy($id)
     {
-        //
+        $schoolYear = SchoolYear::find($id);
+
+        if (!$schoolYear) {
+            return response()->json(['message' => 'Année scolaire introuvable'], 404);
+        }
+
+        $schoolYear->delete();
+
+        return response()->json([
+            'message' => 'L\'année scolaire a été supprimée avec succès',
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SchoolYear $schoolYear)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SchoolYear $schoolYear)
-    {
-        //
-    }
 }

@@ -13,7 +13,7 @@ class Classroom extends Model
     use HasFactory;
     protected $fillable = ['name', 'capacity', 'type'];
 
-    protected  $with=['session_event'];
+    // protected  $with=['session_event'];
 
     public function session_event()
     {

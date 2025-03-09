@@ -1,65 +1,57 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSessionEventRequest;
+use App\Http\Requests\UpdateSessionEventRequest;
 use App\Models\SessionEvent;
-use Illuminate\Http\Request;
 
 class SessionEventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $sessions = SessionEvent::all();
+        return response()->json([
+            'message' => 'Les sessions sont récupérées avec succès',
+            'sessions' => $sessions,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreSessionEventRequest $request)
     {
-        //
+        $session = SessionEvent::create($request->validated());
+        return response()->json([
+            'message' => 'La session a été créée avec succès',
+            'session' => $session,
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        //
+
+        $sessionEvent=SessionEvent::find($id);
+        return response()->json([
+            'message' => 'La session a été récupérée avec succès',
+            'session' => $sessionEvent,
+        ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SessionEvent $sessionEvent)
+    public function update(UpdateSessionEventRequest $request,$id)
     {
-        //
+        $sessionEvent=SessionEvent::find($id);
+        $sessionEvent->update($request->validated());
+        return response()->json([
+            'message' => 'La session a été modifiée avec succès',
+            'session' => $sessionEvent,
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SessionEvent $sessionEvent)
+    public function destroy($id)
     {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SessionEvent $sessionEvent)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SessionEvent $sessionEvent)
-    {
-        //
+        $sessionEvent=SessionEvent::find($id);
+        $sessionEvent->delete();
+        return response()->json([
+            'message' => 'La session a été supprimée avec succès',
+        ], 204);
     }
 }

@@ -15,6 +15,11 @@ class SessionEvent extends Model
 {
     use HasFactory;
 
+    protected $table = 'sessions_events'; // Assurez-vous que c'est le bon nom
+    protected $primaryKey = 'id'; // Assurez-vous que c'est la bonne clé primaire
+
+
+
     protected $fillable = [
         'session_date', 'week_id', 'group_id', 'trainer_id',
         'subject_id', 'classroom_id', 'day', 'session_number', 'duration'

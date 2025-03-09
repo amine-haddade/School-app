@@ -14,7 +14,7 @@ class Trainer extends Model
 
     protected $fillable = ['user_id', 'specialty', 'weekly_hours'];
 
-    protected  $with=['user','assignment','session_event'];
+    // protected  $with=['user','assignment','session_event'];
 
     public function user()
     {

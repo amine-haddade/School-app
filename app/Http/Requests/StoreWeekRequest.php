@@ -14,10 +14,10 @@ class StoreWeekRequest extends FormRequest
     public function rules()
     {
         return [
-            'week_number' => 'required|integer',
+            'week_number' => 'required|integer|unique:weeks,week_number',
             'school_year_id' => 'required|exists:school_years,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required|date|unique:weeks,start_date',
+            'end_date' => 'required|date|unique:weeks,end_date',
         ];
     }
 }

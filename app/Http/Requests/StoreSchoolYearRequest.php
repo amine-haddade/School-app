@@ -14,8 +14,8 @@ class StoreSchoolYearRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_year' => 'required|date_format:Y',
-            'end_year' => 'required|date_format:Y',
+            'start_year' => 'required|date_format:Y|unique:school_years,start_year',
+            'end_year' => 'required|date_format:Y|unique:school_years,end_year',
         ];
     }
 }

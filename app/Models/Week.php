@@ -11,8 +11,6 @@ class Week extends Model
 
     protected $fillable = ['week_number', 'school_year_id', 'start_date', 'end_date'];
 
-    protected  $with=['schoolYear','session_event'];
-
     public function schoolYear()
     {
         return $this->belongsTo(SchoolYear::class);

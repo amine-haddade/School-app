@@ -2,57 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClassroomRequest;
+use App\Http\Requests\UpdateClassroomRequest;
 use App\Models\Classroom;
-use Illuminate\Http\Request;
+
 
 class ClassroomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        //
+        $classrooms=Classroom::all();
+        return response()->json([
+            'message'=>'les salles sont récupérée avec succes',
+            'calssrooms'=>$classrooms,
+        ],200); // 200 sginifier  que le http request estok
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreClassroomRequest $request)
     {
-        //
+        $classroom=Classroom::create($request->validated());
+        return response()->json([
+            'message'=>'le callssroom  son crèe avec succès',
+            'classroom'=>$classroom,
+        ],201); // create succes
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
+  
     public function show(Classroom $classroom)
     {
-        //
+        return response()->json([
+            'message'=>'le callssroom il rècupèrèe  ',
+            'classroom'=>$classroom,
+        ],200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Classroom $classroom)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Classroom $classroom)
+
+    public function update(UpdateClassroomRequest $request, Classroom $classroom)
     {
-        //
+        $classroom->update($request->validated());
+
+        return response()->json([
+            'message'=>'le callssroom á ète`modifier ',
+            'classroom'=>$classroom,
+        ],200); 
     }
 
     /**
@@ -60,6 +54,11 @@ class ClassroomController extends Controller
      */
     public function destroy(Classroom $classroom)
     {
-        //
+        $classroom->delete();
+
+        return response()->json([
+            'message'=>'salle supprimer avec sucèes',
+            
+        ],204); // pas de contenu
     }
 }

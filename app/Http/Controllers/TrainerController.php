@@ -3,63 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trainer;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreTrainerRequest;
+use App\Http\Requests\UpdateTrainerRequest;
+
 
 class TrainerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $trainers = Trainer::all();
+
+        return response()->json([
+            'message' => 'Liste des formateurs récupérée avec succès.',
+            'data' => $trainers
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreTrainerRequest $request)
     {
-        //
+        $trainer = Trainer::create($request->validated());
+
+        return response()->json([
+            'message' => 'Formateur créé avec succès.',
+            'data' => $trainer
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Trainer $trainer)
     {
-        //
+        return response()->json([
+            'message' => 'Formateur trouvé avec succès.',
+            'data' => $trainer
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Trainer $trainer)
+    public function update(UpdateTrainerRequest $request, Trainer $trainer)
     {
-        //
+        $trainer->update($request->validated());
+
+        return response()->json([
+            'message' => 'Formateur mis à jour avec succès.',
+            'data' => $trainer
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Trainer $trainer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Trainer $trainer)
     {
-        //
+        $trainer->delete();
+
+        return response()->json([
+            'message' => 'Formateur supprimé avec succès.',
+            'data' => null
+        ], 204);
     }
 }

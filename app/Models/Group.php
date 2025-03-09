@@ -18,7 +18,7 @@ class Group extends Model
 
     protected $fillable = ['name', 'field_id'];
 
-    protected  $with=['feild','assignment','session_event'];
+    // protected  $with=['field','assignment','session_event'];
 
     public function field()
     {

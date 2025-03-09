@@ -1,65 +1,52 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreWeekRequest;
+use App\Http\Requests\UpdateWeekRequest;
 use App\Models\Week;
-use Illuminate\Http\Request;
 
 class WeekController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $weeks = Week::with('schoolYear')->get();
+        return response()->json([
+            'message' => 'Les semaines sont récupérées avec succès',
+            'weeks' => $weeks,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreWeekRequest $request)
     {
-        //
+        $week = Week::create($request->validated());
+        return response()->json([
+            'message' => 'La semaine a été créée avec succès',
+            'week' => $week,
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Week $week)
     {
-        //
+        return response()->json([
+            'message' => 'La semaine a été récupérée avec succès',
+            'week' => $week,
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Week $week)
+    public function update(UpdateWeekRequest $request, Week $week)
     {
-        //
+        $week->update($request->validated());
+        return response()->json([
+            'message' => 'La semaine a été modifiée avec succès',
+            'week' => $week,
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Week $week)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Week $week)
     {
-        //
+        $week->delete();
+        return response()->json([
+            'message' => 'La semaine a été supprimée avec succès',
+        ], 204);
     }
 }

@@ -16,7 +16,7 @@ class Subject extends Model
     protected $fillable = ['name', 'field_id', 'in_person_hours', 'online_hours', 'exam_type', 'semester'];
 
 
-    protected $with = ['field', 'assignment', 'session_event'];
+    // protected $with = ['field', 'assignment', 'session_event'];
 
     public function field()
     {

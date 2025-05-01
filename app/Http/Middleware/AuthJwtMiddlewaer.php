@@ -22,7 +22,7 @@ class AuthJwtMiddlewaer
 
             $token = JWTAuth::getToken();
             if (!$token) {
-                return  response()->json(['error' => 'token not Provided']);
+                return  response()->json(['error' => 'token not Provided'],402);
             }
 
             // parstoken permet de extraire le token á aprtire de l‘entéte de request souvent sur le Bearer Token

@@ -27,7 +27,8 @@ Route::post('/login',[UserController::class,'login']);
 
 
 Route::middleware(AuthJwtMiddlewaer::class)->group(function(){
-    Route::get('users/index',[UserController::class,'index']);
+    Route::get('/users',[UserController::class,'index']);
+    Route::get('/user',[UserController::class,'getUser']);
 });
 
 

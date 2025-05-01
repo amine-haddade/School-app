@@ -47,7 +47,11 @@ class UserController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
+<<<<<<< HEAD
             'message' => "regsiter  créé avec succès",
+=======
+            'message' => "regsiter créé avec succès",
+>>>>>>> 83ef6286291e95009974f9c3e35977872ef521cd
             'user' => $user,
             'token' => $token
         ], 201); // 201  sginifier la creation
@@ -65,13 +69,18 @@ class UserController extends Controller
         // ce block pour les erreurs de login method
 
         // email incorecte
+<<<<<<< HEAD
         if (!$user  ||  !Hash::check($dataValidated["password"], $user->password)) {
+=======
+        if (!$user) {
+>>>>>>> 83ef6286291e95009974f9c3e35977872ef521cd
             return response()->json([
                 'errors' => [
                     "email" => 'email or password incorcet'
                 ]
             ], 404);
         } // block de password
+<<<<<<< HEAD
         // elseif(!Hash::check($dataValidated["password"],$user->password)){
         //     return response()->json([
         //         'errors'=>[
@@ -81,6 +90,16 @@ class UserController extends Controller
         // }
 
         // il obliger de crèe une nevaux token 
+=======
+        elseif (!Hash::check($dataValidated["password"], $user->password)) {
+            return response()->json([
+                'errors' => [
+                    "email" => "email or password incorcet"
+                ]
+            ], 404); // 401 == non autorisè
+        }
+        // il obliger de crèe une nevaux token
+>>>>>>> 83ef6286291e95009974f9c3e35977872ef521cd
         $token = JWTAuth::fromUser($user);
 
         return response()->json([

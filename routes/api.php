@@ -18,6 +18,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::get('/', function () {
+    return 'test';
+});
+
 
 
 // ***** les route de users ***********
@@ -27,13 +31,17 @@ Route::post('/login',[UserController::class,'login']);
 
 
 Route::middleware(AuthJwtMiddlewaer::class)->group(function(){
+<<<<<<< HEAD
     Route::get('/users',[UserController::class,'index']);
     Route::get('/user',[UserController::class,'getUser']);
+=======
+    Route::get('users',[UserController::class,'index']);
+>>>>>>> 83ef6286291e95009974f9c3e35977872ef521cd
 });
 
 
 
-// route de salle 
+// route de salle
 Route::apiResource('classrooms',ClassroomController::class);
 
 // route des dformatuers
